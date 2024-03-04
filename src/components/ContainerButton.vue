@@ -1,5 +1,5 @@
 <template>
-    <td class="statusCode droite">Statut</td>
+    <button><slot /></button>
 </template>
 
 <style scoped>
