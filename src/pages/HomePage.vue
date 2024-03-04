@@ -1,3 +1,12 @@
+<script setup>
+
+import Containers from '../components/Containers.vue';
+
+
+</script>
 <template>
-	<h1>Hello world</h1>
+	
+<Containers></Containers>
+
+
 </template>

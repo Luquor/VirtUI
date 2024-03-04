@@ -3,6 +3,8 @@ import * as VueRouter from 'vue-router';
 import Home from './pages/HomePage.vue';
 import About from './pages/About.vue';
 
+import './style.css'
+
 import App from './App.vue';
 
 const app = createApp(App);
