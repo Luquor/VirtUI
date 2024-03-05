@@ -2,31 +2,13 @@
 
 import ContainerButton from './components/Home/ContainerButton.vue';
 
-import { RouterLink } from 'vue-router';
+import MenuBar from './components/MenuBar.vue';
 
 </script>
 <template>
 
+    <MenuBar></MenuBar>
 
-<div id="index">
-    <nav class="nav-bar">
-        <ContainerButton class="newContainer">Nouveau conteneur</ContainerButton>
-    </nav>
-
-  <p>
-      <!-- use the router-link component for navigation. -->
-      <!-- specify the link by passing the `to` prop. -->
-      <!-- `<router-link>` will render an `<a>` tag with -->
-      <!-- the correct `href` attribute -->
-      <router-link class="router-link" to="/">Containers</router-link>
-      <router-link class="router-link" to="/about">A propos</router-link>
-      <router-link class="router-link" to="/container">Container</router-link>
-    </p>
-    <!-- route outlet -->
-    <!-- component matched by the route will render here -->
-    <router-view></router-view>
-
-</div>
 
 </template>
 

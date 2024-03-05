@@ -3,36 +3,36 @@
 import Terminal from '../components/VueConteneur/Terminal.vue';
 import Td from '../components/VueConteneur/Td.vue';
 import Nom from '../components/VueConteneur/Nom.vue';
+import MenuBar from '../components/MenuBar.vue';
 
 </script>
 <template>
-    <main>
-        <div class="partieagauche">
-                <h2>MenuBar</h2>
-            </div>
+    <main class="test">
+
+        
         <div class="partieadroite">
             <div class="info_container">
                 <Nom>Oui</Nom>
                 <table>
                     <tr>
                         <td>Statut</td>
-                        <Td>rectum</Td>
+                        <Td>test</Td>
                     </tr>
                     <tr>
                         <td>Code Statut</td>
-                        <Td>anus</Td>
+                        <Td>test</Td>
                     </tr>
                     <tr>
                         <td>Date de création</td>
-                        <Td>caca</Td>
+                        <Td>test</Td>
                     </tr>
                     <tr>
                         <td>Description</td>
-                        <Td>zizi</Td>
+                        <Td>test</Td>
                     </tr>
                     <tr>
                         <td>Localisation</td>
-                        <Td>bite</Td>
+                        <Td>test</Td>
                     </tr>
 
                     <Terminal>
@@ -47,27 +47,6 @@ import Nom from '../components/VueConteneur/Nom.vue';
 </template>
 
 <style scoped>
-    /* General styles */
-body {
-    font-family: sans-serif;
-  }
-
-
-main {
-    display: flex;
-    flex-direction: row;
-    padding-top: 3vw;
-}
-
-.partieagauche {
-    width: 15vw;
-    margin: 1em;
-  }
-  /* Partieadroite container */
-  .partieadroite {
-    background-color: #f2f2f2;
-    padding: 1rem;
-  }
   
   /* Info container */
   .info_container {
@@ -101,7 +80,6 @@ main {
   }
   
   .info_container table .droite {
-    background-color: #eee;
     text-align: right;
   }
   /* Terminal container */

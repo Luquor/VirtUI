@@ -3,6 +3,22 @@ main {
     margin: 0 auto;
 }
 
+#app {
+    display: flex;
+    flex-direction: row;
+    padding-top: 3vw;
+}
+
+.partieagauche {
+    width: 15vw;
+    margin: 1em;
+  }
+  /* Partieadroite container */
+.partieadroite {
+    background-color: #f2f2f2;
+    padding: 1rem;
+}
+
 .cards {
     display: flex;
     flex-wrap: wrap;
