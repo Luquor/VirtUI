@@ -1,12 +1,14 @@
 <script setup>
 
-import Containers from '../components/Containers.vue';
+import Containers from '../components/Home/Containers.vue';
 
 
 </script>
 <template>
 	
-<Containers></Containers>
+<Containers>
+
+</Containers>
 
 
 </template>

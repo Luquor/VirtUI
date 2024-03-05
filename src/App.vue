@@ -1,6 +1,6 @@
 <script setup>
 
-import ContainerButton from './components/ContainerButton.vue';
+import ContainerButton from './components/Home/ContainerButton.vue';
 
 import { RouterLink } from 'vue-router';
 
@@ -20,6 +20,7 @@ import { RouterLink } from 'vue-router';
       <!-- the correct `href` attribute -->
       <router-link class="router-link" to="/">Containers</router-link>
       <router-link class="router-link" to="/about">A propos</router-link>
+      <router-link class="router-link" to="/container">Container</router-link>
     </p>
     <!-- route outlet -->
     <!-- component matched by the route will render here -->

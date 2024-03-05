@@ -4,9 +4,11 @@ import Container from "./Container.vue"
 </script>
 <script>
 
-import Api from "../api/Api.js"
+import Api from "../../api/Api.js"
 
-const containers = await Api.getInstance().getContainers()
+//const containers = await Api.getInstance().getContainers()
+
+const containers = []
 
 console.log(containers);
 
