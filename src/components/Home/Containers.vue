@@ -6,9 +6,9 @@ import Container from "./Container.vue"
 
 import Api from "../../api/Api.js"
 
-//const containers = await Api.getInstance().getContainers()
+let containers = []
+containers = await Api.getInstance().getContainers()
 
-const containers = []
 
 console.log(containers);
 
@@ -18,7 +18,7 @@ console.log(containers);
 <template>
 
    <div class="cards">
-        <Container v-for="(container, item) in containers" :status=container.metadata.status_code>
+        <Container v-for="(container, item) in containers" :status=container.metadata.status>
             {{  container.metadata.name }}
         </Container>
    </div>

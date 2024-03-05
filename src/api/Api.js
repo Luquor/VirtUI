@@ -1,6 +1,9 @@
+import config from '../../env.json'
+
 export default class Api {
 	
 	static INSTANCE;
+	static CONFIG;
 	static URL_API
 
 	static getInstance()
@@ -12,7 +15,9 @@ export default class Api {
 
 	constructor()
 	{
-		this.URL_API = "http://localhost:8000/"
+		console.log(config);
+		this.CONFIG = config;
+		this.URL_API = config.API_URL
 	}
 
 
