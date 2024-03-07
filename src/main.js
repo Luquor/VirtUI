@@ -1,4 +1,7 @@
 import { createApp } from 'vue';
+import { Terminal } from '@xterm/xterm';
+
+
 import * as VueRouter from 'vue-router';
 import Home from './pages/HomePage.vue';
 import About from './pages/About.vue';
@@ -23,6 +26,8 @@ const router = VueRouter.createRouter({
   history: VueRouter.createWebHashHistory(),
   routes,
 });
+
+
 
 app.use(router);
 

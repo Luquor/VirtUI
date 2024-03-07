@@ -12,11 +12,11 @@
     <div class="headerButton">
         <router-link class="router-link" to="/container/add">New Container</router-link>
         <router-link class="router-link" to="/">Containers</router-link>
+        <router-link class="router-link" to="/container">Container {TEMPORAIRE}</router-link>
         <router-link class="router-link" to="/about">A propos</router-link>
-        <router-link class="router-link" to="/container">Container</router-link>
     </div>
 
-    <div class="test">
+    <div class="disposition">
         <div class="partieagauche">
             <h2>NomCluster</h2>
             <div class="listeContainers">
@@ -27,7 +27,9 @@
                 <p>test</p>
             </div>
         </div>
-        <router-view></router-view>
+        <div class="partieadroite">
+            <router-view  outer-view></router-view>
+        </div>
     </div>
 </template>
 

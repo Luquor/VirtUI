@@ -5,10 +5,8 @@ import Containers from '../components/Home/Containers.vue';
 
 </script>
 <template>
-	
-<Containers>
+        <Containers>
 
-</Containers>
-
+        </Containers>
 
 </template>
