@@ -10,8 +10,6 @@ let containers = []
 containers = await Api.getInstance().getContainers()
 
 
-console.log(containers);
-
 
 </script>
 

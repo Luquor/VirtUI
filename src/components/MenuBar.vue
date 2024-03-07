@@ -10,7 +10,7 @@
 
 
     <div class="headerButton">
-        <router-link class="router-link" to="/newContainer">New Container</router-link>
+        <router-link class="router-link" to="/container/add">New Container</router-link>
         <router-link class="router-link" to="/">Containers</router-link>
         <router-link class="router-link" to="/about">A propos</router-link>
         <router-link class="router-link" to="/container">Container</router-link>

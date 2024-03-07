@@ -15,16 +15,20 @@ export default class Api {
 
 	constructor()
 	{
-		console.log(config);
 		this.CONFIG = config;
 		this.URL_API = config.API_URL
 	}
 
 
 	async getContainers() {
-		let urlApi = this.URL_API + "containers";
-		console.log("FETCHING... " + urlApi)
+		let urlApi = this.URL_API + "/containers";
 		return await (await fetch(urlApi)).json()
 	} 
+
+	async getImages()
+	{
+		let urlApi = this.URL_API + "/images";
+		return await (await fetch(urlApi)).json();
+	}
 
 }
