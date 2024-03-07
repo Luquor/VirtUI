@@ -6,32 +6,47 @@
 
 
 <template>
-    <div class="partieagauche">
-        <h2>NomCluster</h2>
+    <h2 id="nomClusterHeader">NomCluster</h2>
 
 
-        <p>
-        <!-- use the router-link component for navigation. -->
-        <!-- specify the link by passing the `to` prop. -->
-        <!-- `<router-link>` will render an `<a>` tag with -->
-        <!-- the correct `href` attribute -->
+    <div class="headerButton">
         <router-link class="router-link" to="/newContainer">New Container</router-link>
         <router-link class="router-link" to="/">Containers</router-link>
         <router-link class="router-link" to="/about">A propos</router-link>
         <router-link class="router-link" to="/container">Container</router-link>
-        </p>
-        <!-- route outlet -->
-        <!-- component matched by the route will render here -->
     </div>
-    <router-view></router-view>
+
+    <div class="test">
+        <div class="partieagauche">
+            <h2>NomCluster</h2>
+            <div class="listeContainers">
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+            </div>
+        </div>
+        <router-view></router-view>
+    </div>
 </template>
 
 <style scoped>
 
-.router-link {
-    display: flex;
-    flex-direction: column;
+.listeContainers > p {
+    padding-left: 1em;
+}
 
+#nomClusterHeader {
+    text-align: center;
+}
+
+.headerButton {
+    display: flex;
+    justify-content: space-evenly
+}
+
+.router-link {
     padding: 6px 14px;
     font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
     border-radius: 6px;

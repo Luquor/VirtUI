@@ -7,9 +7,6 @@ import MenuBar from '../components/MenuBar.vue';
 
 </script>
 <template>
-    <main class="test">
-
-        
         <div class="partieadroite">
             <div class="info_container">
                 <Nom>Oui</Nom>
@@ -42,8 +39,7 @@ import MenuBar from '../components/MenuBar.vue';
                 </table>
 
             </div>
-            </div>  
-    </main>
+        </div>  
 </template>
 
 <style scoped>

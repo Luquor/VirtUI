@@ -3,7 +3,7 @@ main {
     margin: 0 auto;
 }
 
-#app {
+.test {
     display: flex;
     flex-direction: row;
     padding-top: 3vw;
