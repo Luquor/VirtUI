@@ -5,6 +5,7 @@ import { Terminal } from '@xterm/xterm';
 import * as VueRouter from 'vue-router';
 import Home from './pages/HomePage.vue';
 import About from './pages/About.vue';
+import AddContainer from './pages/AddContainer.vue';
 
 import './style.css'
 
@@ -17,7 +18,8 @@ const app = createApp(App);
 const routes = [
   { path: '/', component: Home},
   { path: '/about', component: About},
-  { path: '/container', component: Container}
+  { path: '/container', component: Container},
+  { path: '/newContainer', component: AddContainer }
 ];
 
 const router = VueRouter.createRouter({
