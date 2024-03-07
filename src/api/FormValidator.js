@@ -39,10 +39,16 @@ export default class {
 					if(value == '') { invalidatedRules.push({field: rule.name, invalidated: 'required'})} 
 					return (value !== '')
 				case "string":
-					return true;
+					if(typeof value !== "string") { invalidatedRules.push({field: rule.name, invalidated: 'string'})} 
+					return typeof value === "string";
+				case "number":
+					if(typeof value !== "number") { invalidatedRules.push({field: rule.name, invalidated: 'number'})}
+					return typeof value === "number"
 				case 'max':
-					return true
+					if(value.length >= ruleVal) { invalidatedRules.push({field: rule.name, invalidated: 'max'})} 
+					return value.length <= ruleVal;
 				case 'min':
+					if(value.length < ruleVal) { invalidatedRules.push({field: rule.name, invalidated: 'min'})} 
 					return value.length > ruleVal;
 				default:
 					return true;
