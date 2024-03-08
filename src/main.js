@@ -5,6 +5,7 @@ import { Terminal } from '@xterm/xterm';
 import * as VueRouter from 'vue-router';
 import Home from './pages/HomePage.vue';
 import About from './pages/About.vue';
+import AddContainer from './pages/AddContainer.vue';
 
 import './style.css'
 

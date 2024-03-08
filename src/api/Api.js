@@ -25,10 +25,11 @@ export default class Api {
 		return await (await fetch(urlApi)).json()
 	} 
 
+
 	async getImages()
 	{
 		let urlApi = this.URL_API + "/images";
-		return await (await fetch(urlApi)).json();
+		return await (await fetch(urlApi)).json()
 	}
 
 }

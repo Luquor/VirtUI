@@ -50,4 +50,5 @@ const images = await Api.getInstance().getImages();
 	</Group>
 </Js-form>
 
+
 </template>
