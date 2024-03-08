@@ -32,4 +32,18 @@ export default class Api {
 		return await (await fetch(urlApi)).json()
 	}
 
+	async createContainer(name, fingerprint)
+	{
+		let json = JSON.stringify({"name": name, "fingerprint": fingerprint});
+		let urlApi = this.URL_API + "/container";
+		return await (await fetch(urlApi, {
+			method: "POST",
+			headers: {
+			  "Content-Type": "application/json",
+			},
+
+			body: json,
+		  })).text();
+	}
+
 }

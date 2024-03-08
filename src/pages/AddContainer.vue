@@ -8,13 +8,28 @@ import FormValidator from '../api/FormValidator.js';
 
 function addContainer(event)
 {
+	event.preventDefault();
 	const formData = new FormData(event.target);
 	const formValidator = new FormValidator(formData, [{
-		name: 'container_name',
-		validation: ['required','string','max:15']
-	}]);
+		name: 'name',
+		validator: ['required','string','max:15']
+	}], {
+		"name": 'image',
+		"validator": ['required', 'string']
+	});
 
-	formValidator.isValidate();
+	let [isValide, unRespectedRules] = formValidator.isValidate();
+	if(!isValide)
+	{
+		console.log("Invalide formulaire data");
+		console.log(unRespectedRules);
+		return;
+	}
+
+	(Api.getInstance().createContainer(formData.get("name"), formData.get("image"))).then((elem) => {
+		console.log(elem);
+	})
+
 }
 
 
@@ -33,8 +48,8 @@ const images = await Api.getInstance().getImages();
 
 <Js-form @submit="addContainer($event)">
 	<Group>
-		<Js-input id="container_name" label="Nom du container">
-			<input id="container_name" name="container_name" type="text">
+		<Js-input id="name" label="Nom du container">
+			<input id="name" name="name" type="text">
 		</Js-input>
 		
 	</Group>

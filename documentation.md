@@ -4,11 +4,15 @@ L'api utilise le principe de singleton (pour éviter de créer 500 instance de l
 
 ``Api.getInstance()``: Récupère l'instance actuelle
 
+
 ## Méthode : 
 
 ``getContainers()`` : Retourne la liste des containers.
 ``getImages()`` : Retourne la liste des images disponible.
 
+``createContainer(name, fingerprint)`` :  
+- ``name`` : Nom du conteneur
+- ``fingerprint`` : hash de l'image
 
 # Formulaire
 

@@ -28,7 +28,7 @@ export default class {
 		return [true, undefined];
 	}
 
-	// To Do : Ajouter des règles et debug règle avec : (value)
+	// To Do : Ajouter des règles
 	isValidateFor(rule, value)
 	{
 		const invalidatedRules = [];
