@@ -7,7 +7,7 @@ import Container from "./Container.vue"
 import Api from "../../api/Api.js"
 
 let containers = []
-containers = await Api.getInstance().getContainers()
+containers = []
 
 
 

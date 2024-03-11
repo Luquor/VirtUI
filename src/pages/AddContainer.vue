@@ -26,9 +26,9 @@ function addContainer(event)
 		return;
 	}
 
-	(Api.getInstance().createContainer(formData.get("name"), formData.get("image"))).then((elem) => {
-		console.log(elem);
-	})
+	// (Api.getInstance().createContainer(formData.get("name"), formData.get("image"))).then((elem) => {
+	// 	console.log(elem);
+	// })
 
 }
 
@@ -38,7 +38,7 @@ function addContainer(event)
 
 import Api from "../api/Api.js";
 
-const images = await Api.getInstance().getImages();
+const images =[];
 
 
 
