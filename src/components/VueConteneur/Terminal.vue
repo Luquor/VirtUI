@@ -22,21 +22,60 @@
             term.onData(data => {
                 console.log('Data received:', data);
                 // Handle the data, e.g., send it to a server or process it
+                let indexCurseur = 0;
 
-                if(data === '\r') {
-                    term.write('\r\n');
-                    return;
-                }
 
-                command += data;
-                if (data.charCodeAt(0) === 127) {
-                    term.write('\b \b');
+                switch (data)
+                {
+                    case '\t':
+                        console.log('Tab');
+                        term.write('\t');
+                        for (let i = 0; i < 2; i++)
+                        {
+                            command.push(' ');
+                            indexCurseur++;
+                        }
+                        break;
+                    case '\r':
+                        console.log('Enter');
+                        break;
+                    case '\b' :
+                    case '\x7f':
+                        console.log('Backspace');
+                        term.write('\b \b');
+                        if(command.length > 0 && indexCurseur < command.length){
+                            command.splice(indexCurseur, 1);
+                        } else if (indexCurseur == command.length) {
+                            command.pop();
+                        }
+                        term.write(command);
+                        break;
+                    case '\u001b[D':
+                        console.log('Left');
+                        term.write('\u001b[D');
+                        if(indexCurseur > -1){
+                            indexCurseur--;
+                        }
+                        break;
+                    case '\u001b[C':
+                        console.log('Right');
+                        term.write('\u001b[C');
+                        if(indexCurseur < command.length){
+                            indexCurseur++;
+                        }
+                        break;
+                    case '\u001b[A':
+                    case '\u001b[B':
+                        break;
+                    default:
+                        indexCurseur++;
+                        term.write(data);
+                        command.push(data);
+                    }
                     
-                    return;
-                }
-
+                    
+                console.log("Index Curseur :" + indexCurseur);
                 console.log(command);
-                term.write(data);
             });
 
 
