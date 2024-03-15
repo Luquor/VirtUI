@@ -8,6 +8,7 @@
 
 <script>
     import { Terminal } from '@xterm/xterm';
+    import ansiEscapes from 'ansi-escapes';
 
     export default {
         mounted() {
@@ -17,14 +18,13 @@
             });
             
             let command = [];
+            let indexCurseur = 0;
 
             term.open(document.getElementById('terminal'));
             term.onData(data => {
                 console.log('Data received:', data);
                 // Handle the data, e.g., send it to a server or process it
-                let indexCurseur = 0;
-
-
+                
                 switch (data)
                 {
                     case '\t':
@@ -38,42 +38,49 @@
                         break;
                     case '\r':
                         console.log('Enter');
+                        term.write('\r\n');
+                        //SEND
                         break;
                     case '\b' :
                     case '\x7f':
                         console.log('Backspace');
-                        term.write('\b \b');
                         if(command.length > 0 && indexCurseur < command.length){
                             command.splice(indexCurseur, 1);
+                            term.reset();
+                            for (let i = 0; i < command.length; i++)
+                            {
+                                term.write(command[i]);
+                            }
                         } else if (indexCurseur == command.length) {
                             command.pop();
+                            term.write('\b \b');
                         }
-                        term.write(command);
+                        if(indexCurseur > 0){
+                            indexCurseur--;
+                        }
                         break;
                     case '\u001b[D':
-                        console.log('Left');
                         term.write('\u001b[D');
-                        if(indexCurseur > -1){
+                        if(indexCurseur > 0){
                             indexCurseur--;
                         }
                         break;
                     case '\u001b[C':
-                        console.log('Right');
-                        term.write('\u001b[C');
                         if(indexCurseur < command.length){
                             indexCurseur++;
+                            term.write('\u001b[C');
                         }
                         break;
                     case '\u001b[A':
                     case '\u001b[B':
                         break;
                     default:
-                        indexCurseur++;
                         term.write(data);
                         command.push(data);
+                        indexCurseur++;
+                        break;
                     }
-                    
-                    
+                console.log("Command size: " + command.length);
                 console.log("Index Curseur :" + indexCurseur);
                 console.log(command);
             });
