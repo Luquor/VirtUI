@@ -25,7 +25,6 @@
             term.onData(data => {
                 console.log('Data received:', data);
                 // Handle the data, e.g., send it to a server or process it
-                
                 switch (data)
                 {
                     case '\t':
@@ -59,8 +58,8 @@
                         }
                         break;
                     case '\u001b[D':
-                        term.write('\u001b[D');
                         if(indexCurseur > 0){
+                            term.write('\u001b[D');
                             indexCurseur--;
                         }
                         break;
