@@ -19,6 +19,7 @@
             
             let command = [];
             let indexCurseur = 0;
+            let indexColomne = 1;
 
             term.open(document.getElementById('terminal'));
             term.onData(data => {
@@ -37,24 +38,22 @@
                         }
                         break;
                     case '\r':
-                        console.log('Enter');
                         term.write('\r\n');
-                        //SEND
+                        command = [];
+                        indexColomne++;
+                        indexCurseur = 0;
                         break;
                     case '\b' :
                     case '\x7f':
-                        console.log('Backspace');
                         if(command.length > 0 && indexCurseur < command.length){
-                            command.splice(indexCurseur, 1);
-                            term.reset();
-                            for (let i = 0; i < command.length; i++)
-                            {
-                                term.write(command[i]);
-                            }
+                            term.write('\x1b' + ansiEscapes.eraseLine + ansiEscapes.cursorLeft);
+                            command.splice(indexCurseur-1, 1);
+                            term.write(command.toString().replace(/,/g, ''));
                         } else if (indexCurseur == command.length) {
                             command.pop();
                             term.write('\b \b');
                         }
+                        term.write('\x1b['+ indexColomne + ';'+ indexCurseur + 'H');
                         if(indexCurseur > 0){
                             indexCurseur--;
                         }
@@ -74,14 +73,18 @@
                     case '\u001b[A':
                     case '\u001b[B':
                         break;
-                    default:
+                    case (data.match(/^\w|-|\||,|\./) || {}).input:
                         term.write(data);
                         command.push(data);
                         indexCurseur++;
                         break;
+                    default:
+                        
+                        break;
                     }
                 console.log("Command size: " + command.length);
                 console.log("Index Curseur :" + indexCurseur);
+                console.log("Index Colomne :" + indexColomne);
                 console.log(command);
             });
 
