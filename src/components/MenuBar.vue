@@ -2,6 +2,16 @@
 
     import { RouterLink } from 'vue-router';    
 
+    import { ref } from 'vue'
+    import TreeItem from './TreeItem.vue'
+
+    const treeData = ref({
+        name: 'Cluster name',
+        children: [
+            { name: 'hello' },
+            { name: 'wat' }   
+        ]
+    })
 </script>
 
 
@@ -18,14 +28,10 @@
 
     <div class="disposition">
         <div class="partieagauche">
-            <h2>NomCluster</h2>
-            <div class="listeContainers">
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-            </div>
+            <h2>Clusters</h2>
+            <ul>
+                <TreeItem class="item" :model="treeData"></TreeItem>
+            </ul>
         </div>
         <div class="partieadroite">
             <router-view  outer-view></router-view>
@@ -68,6 +74,5 @@
   box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
   outline: 0;
 }
-
 
 </style>
