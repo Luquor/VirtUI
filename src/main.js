@@ -1,5 +1,4 @@
 import { createApp } from 'vue';
-import { Terminal } from '@xterm/xterm';
 
 
 import * as VueRouter from 'vue-router';
@@ -11,14 +10,16 @@ import Container from './pages/Container.vue';
 import './style.css'
 
 import App from './App.vue';
+import WConsole from "./api/WConsole.js";
 
 const app = createApp(App);
+
 
 
 const routes = [
   { path: '/', component: Home},
   { path: '/about', component: About},
-  { path: '/container', component: Container},
+  { path: '/container/:name', component: Container},
   { path: '/container/add', component: AddContainer}
 ];
 

@@ -19,18 +19,31 @@ export default class Api {
 		this.URL_API = config.API_URL
 	}
 
+	async getWebSocketsConsoleURL(name)
+	{
+		let urlApi = this.URL_API + "/container/" + name + "/console";
+		return await (await fetch(urlApi)).json();
+	}
+
+
 
 	async getContainers() {
 		let urlApi = this.URL_API + "/containers";
 		return await (await fetch(urlApi)).json()
 	} 
 
+	async getContainer(name)
+	{
+		let urlApi = this.URL_API + "/container/" + name;
+		return await (await fetch(urlApi)).json() 
+	}
 
 	async getImages()
 	{
 		let urlApi = this.URL_API + "/images";
 		return await (await fetch(urlApi)).json()
 	}
+
 
 	async createContainer(name, fingerprint)
 	{

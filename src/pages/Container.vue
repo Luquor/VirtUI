@@ -6,13 +6,20 @@ import Nom from '../components/VueConteneur/Nom.vue';
 import MenuBar from '../components/MenuBar.vue';
 
 </script>
+<script>
+
+import Api from "../api/Api.js";
+
+//console.log($route.params.name)
+
+</script>
 <template>
         <div class="partieadroite">
             <div class="info_container">
-                <Nom>Oui</Nom>
+                <Nom>{{  $route.params.name }}</Nom>
                 <table>
                     <tr>
-                        <td>Statut</td>
+                        <td></td>
                         <Td>test</Td>
                     </tr>
                     <tr>
@@ -43,6 +50,7 @@ import MenuBar from '../components/MenuBar.vue';
 </template>
 
 <style scoped>
+
   
   /* Info container */
   .info_container {
