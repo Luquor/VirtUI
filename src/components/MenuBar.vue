@@ -6,10 +6,10 @@
     import TreeItem from './TreeItem.vue'
 
     const treeData = ref({
-        name: 'Cluster name',
+        name: 'TEMP',
         children: [
-            { name: 'hello' },
-            { name: 'wat' }   
+            { name: 'TEMP' },
+            { name: 'TEMP' }   
         ]
     })
 </script>

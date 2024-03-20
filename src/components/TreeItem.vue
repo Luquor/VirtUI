@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
+import { RouterLink } from 'vue-router';
 
 const props = defineProps({
   model: Object
@@ -24,13 +25,16 @@ function changeType() {
 </script>
 
 <template>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="../../node_modules/@spectrum-css/treeview/index.css" />
   <li>
     <div
       :class="{ bold: isFolder }"
       @click="toggle"
       @dblclick="changeType">
-      {{ model.name }}
-      <span v-if="isFolder">[{{ isOpen ? '-' : '+' }}]</span>
+      <span v-if="isFolder && !isOpen" class="spectrum-TreeView-itemLabel">{{ model.name }} </span>
+      <span v-if="isFolder && isOpen" class="spectrum-TreeView-itemLabel">{{ model.name }} </span>
+      <router-link v-if="!isFolder" :to="`/container/${model.name}`" class="router-link spectrum-TreeView-item">{{ model.name }} </router-link>
     </div>
     <ul v-show="isOpen" v-if="isFolder">
       <!--
@@ -45,3 +49,11 @@ function changeType() {
     </ul>
   </li>
 </template>
+
+<style scoped>
+  .material-symbols-outlined {
+    font-size: 15px;
+  }
+
+  
+</style>

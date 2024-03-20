@@ -15,10 +15,10 @@ containers = []
 
 <template>
 
-   <div class="cards">
-        <Container v-for="(container, item) in containers" :status=container.metadata.status>
-            {{  container.metadata.name }}
-        </Container>
-   </div>
+        <div class="cards">
+                <Container v-for="(container, item) in containers" :status=container.metadata.status>
+                    {{  container.metadata.name }}
+                </Container>
+        </div>
 
 </template>
