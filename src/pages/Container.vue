@@ -18,10 +18,20 @@ let container = ref({metadata: {status: "LOADING...", created_at: "LOADING...", 
 
 onMounted(async () => {
   container.value = await Api.getInstance().getContainer(route.params.name)
-  console.log(container.value)
+  if(!container.value)
+  {
+    Toastify({
+
+      text: "Une erreur est survenue lors de la récupèration de l'instance",
+      close: true,
+      position: "right",
+      className: "error",
+      duration: 200
+    }).showToast();
+  }
 })
 
-
+/**
 Toastify({
 
   text: "Une erreur est survenue",
@@ -30,7 +40,7 @@ Toastify({
   className: "error",
   duration: 200
 }).showToast();
-
+**/
 
 
 </script>
