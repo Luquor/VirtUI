@@ -12,29 +12,41 @@
     import {watch} from "vue";
     import {useRoute} from "vue-router";
 
+
     // TO DO : WATCH BUG FIX DOUBLE SOCKET
     export default {
         mounted() {
-
-          const term = new Terminal({
+          let term;
+          term = new Terminal({
             cursorBlink: true, // Optionally, if you want cursor blinking
             cursorStyle: 'underline' // Optionally, customize cursor style
           });
+          term.open(document.getElementById('terminal'));
 
           const textEncoder = new TextEncoder();
-
-
           const route = useRoute()
 
-          term.open(document.getElementById('terminal'));
+
+
+          let wConsole = new WConsole(route.params.name);
+          wConsole.defineTerminal(term)
+
+
+          term.onData(data => {
+            wConsole.getWebSocket()?.send(textEncoder.encode(data));
+          });
 
 
           watch(() => route.params.name, (newName, oldName) => {
-
-            const wConsole = new WConsole(newName)
-            wConsole.close(oldName)
+            term.dispose()
+            term = new Terminal({
+              cursorBlink: true, // Optionally, if you want cursor blinking
+              cursorStyle: 'underline' // Optionally, customize cursor style
+            });
+            term.open(document.getElementById('terminal'));
+            wConsole?.closeSocket(oldName)
+            wConsole = new WConsole(newName)
             wConsole.defineTerminal(term)
-
             term.onData(data => {
               wConsole.getWebSocket()?.send(textEncoder.encode(data));
             });

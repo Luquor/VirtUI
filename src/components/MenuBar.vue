@@ -22,7 +22,7 @@
     <div class="headerButton">
         <router-link class="router-link" to="/container/add">New Container</router-link>
         <router-link class="router-link" to="/">Containers</router-link>
-        <router-link class="router-link" to="/container">Container {TEMPORAIRE}</router-link>
+        <router-link class="router-link" to="/container/test">Container {TEMPORAIRE}</router-link>
         <router-link class="router-link" to="/about">A propos</router-link>
     </div>
 

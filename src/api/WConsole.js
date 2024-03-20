@@ -18,14 +18,12 @@ export default class WConsole {
         return this.terminalSocketData;
     }
 
-    close(oldName)
+    closeSocket(oldName)
     {
-        console.log("Closed ? " + this.name + " - " + oldName)
         if(this.name === oldName)
         {
             this.terminalSocketControl.close()
             this.terminalSocketData.close()
-            this.xTerm.clear()
             console.log(name + " is closed");
 
         }
