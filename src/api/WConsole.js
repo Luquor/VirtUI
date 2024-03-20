@@ -33,7 +33,6 @@ export default class WConsole {
     {
         this.xTerm = terminal
         const webSocketsUrl = await Api.getInstance().getWebSocketsConsoleURL(this.name)
-        console.log(webSocketsUrl)
         this.terminalSocketData = new WebSocket('wss://127.0.0.1:8443' + webSocketsUrl.Data);
         this.terminalSocketControl = new WebSocket('wss://127.0.0.1:8443' + webSocketsUrl.Control)
 
@@ -54,7 +53,6 @@ export default class WConsole {
 
         this.terminalSocketData.binaryType = "arraybuffer";
         this.terminalSocketData.onmessage = (message) => {
-            console.log(new Uint8Array(message.data))
             terminal.write(new Uint8Array(message.data));
         };
 

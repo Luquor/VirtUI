@@ -3,16 +3,38 @@
 import Terminal from '../components/VueConteneur/Terminal.vue';
 import Td from '../components/VueConteneur/Td.vue';
 import Nom from '../components/VueConteneur/Nom.vue';
-import MenuBar from '../components/MenuBar.vue';
 
-</script>
-<script>
+
+import Toastify from "toastify-js/src/toastify-es.js";
 
 import Api from "../api/Api.js";
 
-//console.log($route.params.name)
+import {useRoute} from "vue-router";
+import {onMounted, ref} from "vue";
+
+const route = useRoute()
+
+let container = ref({metadata: {status: "LOADING...", created_at: "LOADING...", description: "LOADING...", location: "LOADING..."}});
+
+onMounted(async () => {
+  container.value = await Api.getInstance().getContainer(route.params.name)
+  console.log(container.value)
+})
+
+
+Toastify({
+
+  text: "Une erreur est survenue",
+  close: true,
+  position: "right",
+  className: "error",
+  duration: 200
+}).showToast();
+
+
 
 </script>
+
 <template>
         <div class="partieadroite">
             <div class="info_container">
@@ -20,23 +42,23 @@ import Api from "../api/Api.js";
                 <table>
                     <tr>
                         <td></td>
-                        <Td>test</Td>
+                        <Td></Td>
                     </tr>
                     <tr>
                         <td>Code Statut</td>
-                        <Td>test</Td>
+                        <Td>{{ container.metadata.status }}</Td>
                     </tr>
                     <tr>
                         <td>Date de création</td>
-                        <Td>test</Td>
+                        <Td>{{ new Date(container.metadata.created_at).toLocaleString("fr") }}</Td>
                     </tr>
                     <tr>
                         <td>Description</td>
-                        <Td>test</Td>
+                        <Td>{{ container.metadata.description}}</Td>
                     </tr>
                     <tr>
                         <td>Localisation</td>
-                        <Td>test</Td>
+                        <Td>{{ container.metadata.location }}</Td>
                     </tr>
 
                     <Terminal>

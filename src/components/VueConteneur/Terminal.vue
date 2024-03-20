@@ -13,7 +13,8 @@
     import {useRoute} from "vue-router";
 
 
-    // TO DO : WATCH BUG FIX DOUBLE SOCKET
+    // TO DO : fix dimension terminal : https://www.npmjs.com/package/xterm-addon-fit
+
     export default {
         mounted() {
           let term;

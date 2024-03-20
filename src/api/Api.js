@@ -9,7 +9,7 @@ export default class Api {
 	static getInstance()
 	{
 
-		if(this.INSTANCE == undefined) { this.INSTANCE = new Api();}
+		if(this.INSTANCE === undefined) { this.INSTANCE = new Api();}
 		return this.INSTANCE;
 	}
 
