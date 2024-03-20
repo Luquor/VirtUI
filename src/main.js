@@ -8,6 +8,7 @@ import AddContainer from './pages/AddContainer.vue';
 import Container from './pages/Container.vue';
 
 import './style.css'
+import "toastify-js/src/toastify.css"
 
 import App from './App.vue';
 import WConsole from "./api/WConsole.js";

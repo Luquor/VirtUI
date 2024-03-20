@@ -14,6 +14,31 @@ L'api utilise le principe de singleton (pour éviter de créer 500 instance de l
 - ``name`` : Nom du conteneur
 - ``fingerprint`` : hash de l'image
 
+
+
+# Toast (Pop-up d'informations)
+
+Utilisation de la librarie ``toastify`` pour afficher différentes informations :
+
+
+```js
+
+import Toastify from "toastify-js/src/toastify-es.js";
+
+
+const toast = Toastify({
+
+text: "Une erreur est survenue",
+close: true,
+position: "right",
+className: "error", // enlever ici, si information != erreur
+duration: 200
+});
+
+toast.showToast();
+
+```
+
 # Formulaire
 
 ## Validation des formulaires
@@ -82,5 +107,6 @@ et un tableau des champs invalides (si champs invalide, il y a).
 [
 	{ field: "name", invalidated: "required" }
 ]
-​
+
 ```
+
