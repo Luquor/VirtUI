@@ -55,5 +55,18 @@ function changeType() {
     font-size: 15px;
   }
 
-  
+  .router-link {
+
+    background-color: black; /* Green */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 4px 8px;
+    text-align: center;
+    margin: 5px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+
+  }
 </style>
