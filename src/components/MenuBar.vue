@@ -24,6 +24,7 @@
         <router-link class="router-link" to="/">Containers</router-link>
         <router-link class="router-link" to="/container/test">Container {TEMPORAIRE}</router-link>
         <router-link class="router-link" to="/about">A propos</router-link>
+        <router-link class="router-link" to="/cluster">Gestion Clusters</router-link>
     </div>
 
     <div class="disposition">
