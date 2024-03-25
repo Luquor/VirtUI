@@ -1,17 +1,45 @@
 <script setup>
 
-    import { RouterLink } from 'vue-router';    
+    import { RouterLink } from 'vue-router';
 
-    import { ref } from 'vue'
+    import {onMounted, ref} from 'vue'
     import TreeItem from './TreeItem.vue'
+    import Api from "../api/Api.js";
 
-    const treeData = ref({
-        name: 'TEMP',
-        children: [
-            { name: 'TEMP' },
-            { name: 'TEMP' }   
-        ]
+    const treeData = ref([
+      {name: 'LOADING...', children: [{name: '...'}, {name: '...'}]},
+      {name: 'LOADING...', children: [{name: '...'}, {name: '...'}]}
+    ]);
+
+
+    onMounted(async () => {
+
+
+      const data = await Api.getInstance().getClusters();
+      const jsonData = [];
+      for (const elem of data) {
+        let dataContainer = await Api.getInstance().getContainersFromCluster(elem.metadata.server_name)
+        console.log(dataContainer)
+        let jsonContainer = []
+        if(dataContainer !== null)
+        {
+          dataContainer.forEach((container) => {
+            jsonContainer.push({name: container.metadata.name})
+          })
+        }
+        else
+        {
+          jsonContainer.push({name: "Vide"})
+        }
+
+        jsonData.push({name: elem.metadata.server_name, children: jsonContainer})
+      }
+      treeData.value = jsonData;
+
     })
+
+
+
 </script>
 
 
@@ -31,7 +59,11 @@
         <div class="partieagauche">
             <h2>Clusters</h2>
             <ul>
-                <TreeItem class="item" :model="treeData"></TreeItem>
+              <TreeItem
+                  class="item"
+                  v-for="model in treeData"
+                  :model="model">
+              </TreeItem>
             </ul>
         </div>
         <div class="partieadroite">

@@ -56,6 +56,21 @@ export default class Api {
 	}
 
 
+	async getClusters()
+	{
+		// /clusters
+		let urlApi = this.URL_API + "/clusters";
+		return await (await fetch(urlApi).catch(Api.TOAST_ERR_API)).json()
+	}
+
+	async getContainersFromCluster(clustername)
+	{
+		// /cluster/{clustername}/container
+		let urlApi = this.URL_API + "/cluster/" + clustername + "/container";
+		return await (await fetch(urlApi).catch(Api.TOAST_ERR_API)).json()
+	}
+
+
 	async createContainer(name, fingerprint)
 	{
 		let json = JSON.stringify({"name": name, "fingerprint": fingerprint});

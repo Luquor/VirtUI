@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@spectrum-css/treeview": "^9.2.6",
     "@xterm/xterm": "^5.4.0",
     "ansi-escapes": "^6.2.0",
     "toastify-js": "^1.12.0",
