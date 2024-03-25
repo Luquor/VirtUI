@@ -6,6 +6,7 @@ import Home from './pages/HomePage.vue';
 import About from './pages/About.vue';
 import AddContainer from './pages/AddContainer.vue';
 import Container from './pages/Container.vue';
+import GestionCluster from './pages/GestionCluster.vue';
 
 import './style.css'
 import "toastify-js/src/toastify.css"
@@ -21,7 +22,8 @@ const routes = [
   { path: '/', component: Home},
   { path: '/about', component: About},
   { path: '/container/:name', component: Container},
-  { path: '/container/add', component: AddContainer}
+  { path: '/container/add', component: AddContainer},
+  { path: '/cluster', component: GestionCluster}
 ];
 
 const router = VueRouter.createRouter({
