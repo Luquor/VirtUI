@@ -1,6 +1,6 @@
 <script setup>
 
-import Containers from '../components/Home/Containers.vue';
+import Containers from '../components/Home/ListeContainers.vue';
 
 
 </script>
