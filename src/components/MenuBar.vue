@@ -23,7 +23,7 @@
         if(dataContainer !== null)
         {
           dataContainer.forEach((container) => {
-            jsonContainer.push({name: container.metadata.name})
+            jsonContainer.push({cluster: elem.metadata.server_name, name: container.metadata.name})
           })
         }
         else
