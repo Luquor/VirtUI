@@ -19,7 +19,6 @@
       const jsonData = [];
       for (const elem of data) {
         let dataContainer = await Api.getInstance().getContainersFromCluster(elem.metadata.server_name)
-        console.log(dataContainer)
         let jsonContainer = []
         if(dataContainer !== null)
         {
@@ -60,7 +59,6 @@
             <h2>Clusters</h2>
             <ul>
               <TreeItem
-                  class="item"
                   v-for="model in treeData"
                   :model="model">
               </TreeItem>

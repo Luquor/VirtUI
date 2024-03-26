@@ -37,7 +37,6 @@ function changeType() {
     </div>
     <ul v-show="isOpen" v-if="isFolder">
       <TreeItem
-        class="item"
         v-for="model in model.children"
         :model="model">
       </TreeItem>

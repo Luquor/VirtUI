@@ -10,7 +10,7 @@ import Toastify from "toastify-js/src/toastify-es.js";
 import Api from "../api/Api.js";
 
 import {useRoute} from "vue-router";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 
 const route = useRoute()
 
@@ -31,16 +31,25 @@ onMounted(async () => {
   }
 })
 
-/**
-Toastify({
+watch(
+    () => route.params.name,
+    async (newName, oldName ) => {
+      container.value = {metadata: {status: "LOADING...", created_at: "LOADING...", description: "LOADING...", location: "LOADING..."}};
+      container.value = await Api.getInstance().getContainer(route.params.name)
+      if(!container.value)
+      {
+        Toastify({
 
-  text: "Une erreur est survenue",
-  close: true,
-  position: "right",
-  className: "error",
-  duration: 200
-}).showToast();
-**/
+          text: "Une erreur est survenue lors de la récupèration de l'instance",
+          close: true,
+          position: "right",
+          className: "error",
+          duration: 200
+        }).showToast();
+      }
+    }
+)
+
 
 
 </script>
@@ -71,7 +80,7 @@ Toastify({
                         <Td>{{ container.metadata.location }}</Td>
                     </tr>
 
-                    <Terminal>
+                    <Terminal v-if="container.metadata.status === 'Running'">
                         
                     </Terminal>
 
