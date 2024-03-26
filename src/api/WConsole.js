@@ -28,8 +28,9 @@ export default class WConsole {
     {
         if(this.name === oldName)
         {
-            this.terminalSocketControl.close()
-            this.terminalSocketData.close()
+
+            if(this.terminalSocketControl) this.terminalSocketControl.close()
+            if(this.terminalSocketData) this.terminalSocketData.close()
             console.log(name + " is closed");
 
         }
