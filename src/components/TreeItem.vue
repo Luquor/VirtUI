@@ -49,12 +49,18 @@ function changeType() {
     font-size: 15px;
   }
 
+  div {
+    color: white;
+  }
+
+
+
   .router-link {
 
-    background-color: black; /* Green */
+    background-color: white; /* Green */
     border: none;
     border-radius: 5px;
-    color: white;
+    color: black;
     padding: 4px 8px;
     text-align: center;
     margin: 5px;

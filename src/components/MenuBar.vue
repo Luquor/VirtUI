@@ -43,34 +43,52 @@
 
 
 <template>
-    <h2 id="nomClusterHeader">NomCluster</h2>
-
-
-    <div class="headerButton">
-        <router-link class="router-link" to="/container/add">New Container</router-link>
-        <router-link class="router-link" to="/">Containers</router-link>
-        <router-link class="router-link" to="/container/test">Container {TEMPORAIRE}</router-link>
-        <router-link class="router-link" to="/about">A propos</router-link>
-        <router-link class="router-link" to="/cluster">Gestion Clusters</router-link>
+    
+    <div class="partieagauche">
+        <h2>Clusters</h2>
+        <ul>
+            <TreeItem
+                class="item"
+                v-for="model in treeData"
+                :model="model">
+            </TreeItem>
+        </ul>
     </div>
 
-    <div class="disposition">
-        <div class="partieagauche">
-            <h2>Clusters</h2>
-            <ul>
-              <TreeItem
-                  v-for="model in treeData"
-                  :model="model">
-              </TreeItem>
-            </ul>
+    <div class="headerAndContent">
+        <router-link id="nomClusterHeader" to="/"><h2>NomCluster</h2></router-link>
+        <div class="headerButton buttons">
+            <router-link class="router-link" to="/container/add">New Container</router-link>
+            <router-link class="router-link" to="/">Containers</router-link>
+            <router-link class="router-link" to="/container/test">Container {TEMPORAIRE}</router-link>
+            <router-link class="router-link" to="/about">A propos</router-link>
+            <router-link class="router-link" to="/cluster">Gestion Clusters</router-link>
         </div>
+    
         <div class="partieadroite">
             <router-view  outer-view></router-view>
         </div>
     </div>
+
 </template>
 
-<style scoped>
+<style>
+
+h2 {
+    color: white;
+}
+
+#app {
+    display: flex;
+}
+
+.headerAndContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 5vh;
+    margin-right: 5vh;
+}
 
 .listeContainers > p {
     padding-left: 1em;
@@ -78,6 +96,8 @@
 
 #nomClusterHeader {
     text-align: center;
+    text-decoration: none;
+    color: white;
 }
 
 .headerButton {
@@ -85,9 +105,16 @@
     justify-content: space-evenly
 }
 
+.partieagauche {
+    min-height: 100vh;
+}
+
+.partieadroite {
+    margin-top: 5vh;
+}
+
 .router-link {
     padding: 6px 14px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
     border-radius: 6px;
     border: none;
 
