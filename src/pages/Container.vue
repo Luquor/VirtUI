@@ -147,7 +147,7 @@ watch(
     display: flex;
     flex-direction: column;
     margin: 1em;
-    width: 70vw;
+    width: 98%;
   }
   
   /* H1 title */
@@ -176,27 +176,4 @@ watch(
   .info_container table .droite {
     text-align: right;
   }
-  /* Terminal container */
-  .terminal {
-    margin-top: 2rem;
-    border: 1px solid #ccc;
-    padding: 1rem;
-    border-radius: 5px;
-  }
-  
-  .terminal h2 {
-    text-align: center;
-  }
-  
-  /* Media queries for responsive design */
-  @media (max-width: 768px) {
-    .partieadroite {
-      flex-direction: column-reverse;
-    }
-  
-    .info_container table {
-      overflow-x: scroll;
-    }
-  }
-  
 </style>
