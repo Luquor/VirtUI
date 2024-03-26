@@ -133,8 +133,6 @@ watch(
     gap: 10px;
   }
 
-
-
   #terminal
   {
     width: 90%;

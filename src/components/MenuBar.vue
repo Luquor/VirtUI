@@ -60,7 +60,7 @@
         <div class="headerButton buttons">
             <router-link class="router-link" to="/container/add">New Container</router-link>
             <router-link class="router-link" to="/">Containers</router-link>
-            <router-link class="router-link" to="/container/test">Container {TEMPORAIRE}</router-link>
+            <router-link class="router-link" to="/container/undefined/test">Container {TEMPORAIRE}</router-link>
             <router-link class="router-link" to="/about">A propos</router-link>
             <router-link class="router-link" to="/cluster">Gestion Clusters</router-link>
         </div>
