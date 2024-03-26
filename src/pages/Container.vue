@@ -75,49 +75,47 @@ watch(
 </script>
 
 <template>
-        <div class="partieadroite">
-            <div class="info_container">
-                <Nom>{{  $route.params.container }}</Nom>
-                <table>
-                    <tr>
-                        <td></td>
-                        <Td></Td>
-                    </tr>
-                    <tr>
-                        <td>Code Statut</td>
-                        <Td>{{ container.metadata.status }}</Td>
-                    </tr>
-                    <tr>
-                        <td>Date de création</td>
-                        <Td>{{ new Date(container.metadata.created_at).toLocaleString("fr") }}</Td>
-                    </tr>
-                    <tr>
-                        <td>Description</td>
-                        <Td>{{ container.metadata.description}}</Td>
-                    </tr>
-                    <tr>
-                        <td>Localisation</td>
-                        <Td>{{ container.metadata.location }}</Td>
-                    </tr>
+    <div class="info_container">
+        <Nom>{{  $route.params.container }}</Nom>
+        <table>
+            <tr>
+                <td></td>
+                <Td></Td>
+            </tr>
+            <tr>
+                <td>Code Statut</td>
+                <Td>{{ container.metadata.status }}</Td>
+            </tr>
+            <tr>
+                <td>Date de création</td>
+                <Td>{{ new Date(container.metadata.created_at).toLocaleString("fr") }}</Td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <Td>{{ container.metadata.description}}</Td>
+            </tr>
+            <tr>
+                <td>Localisation</td>
+                <Td>{{ container.metadata.location }}</Td>
+            </tr>
 
 
-                </table>
+        </table>
 
-                 <div class="actionnable">
-                   <Terminal v-if="container.metadata.status === 'Running'">
+          <div class="actionnable">
+            <!-- <Terminal v-if="container.metadata.status === 'Running'"> -->
+          <Terminal>
+          </Terminal>
+            <div class="card-actions">
 
-                   </Terminal>
-                   <div class="card-actions">
-
-                     <button @click="startContainer" v-if="container.metadata.status === 'Stopped'" class="start">Lancer</button>
-                     <button v-if="container.metadata.status === 'Running'" class="stop">Stopper</button>
-                     <button v-if="container.metadata.status === 'Running'" class="restart">Relancer</button>
-                     <button class="delete">Supprimer</button>
-                   </div>
-                 </div>
-
+              <button @click="startContainer" v-if="container.metadata.status === 'Stopped'" class="start">Lancer</button>
+              <button v-if="container.metadata.status === 'Running'" class="stop">Stopper</button>
+              <button v-if="container.metadata.status === 'Running'" class="restart">Relancer</button>
+              <button class="delete">Supprimer</button>
             </div>
-        </div>  
+          </div>
+
+    </div>
 </template>
 
 <style scoped>

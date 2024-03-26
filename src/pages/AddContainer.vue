@@ -73,21 +73,19 @@ function addContainer(event)
 <Js-form class="formAddContainer" @submit="addContainer($event)">
 	<Group>
 		<Js-input class="title" label="Nom du container">
-			<br>
 			<input class="name" name="name" type="text">
 		</Js-input>
 		
 	</Group>
 	<Group>
 		<Js-input class="title" label="Images">
-			<br>
 			<select name="image" id="image">
 				<option v-for="image in images" :value=image.metadata.fingerprint>{{  image.metadata.properties.os }} ({{ image.metadata.properties.release }}) - {{  image.metadata.update_source.alias }}</option>
 			</select>
 		</Js-input>
 	</Group>
   <Group>
-    <Js-input id="cluster" label="Cluster">
+    <Js-input class="title" id="cluster" label="Cluster">
       <select name="cluster" id="cluster">
         <option v-for="cluster in clusters" :value="cluster.metadata.server_name">{{ cluster.metadata.server_name }}</option>
       </select>
@@ -122,9 +120,15 @@ function addContainer(event)
     margin-bottom: 1em;
 }
 
+Js-input {
+  position: relative;
+}
+
 .title label { 
+  position: relative;
 	color: white;
 	background-color: #1f1f1f;
+  margin-bottom: 1vh;
 }
 
 
