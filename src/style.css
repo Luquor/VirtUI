@@ -1,3 +1,7 @@
+* {
+    font-family: 'Monocraft';
+}
+
 
 .toastify.error
 {
@@ -14,6 +18,14 @@ main {
     margin: 0 auto;
 }
 
+body {
+    background-color: #1f1f1f;
+}
+
+body, html {
+    margin: 0;
+}
+
 .disposition {
     display: flex;
     flex-direction: row;
@@ -22,12 +34,16 @@ main {
 
 .partieagauche {
     width: 15vw;
-    margin: 1em;
-  }
-  /* Partieadroite container */
+    background-color: #181818;
+    padding-left: 1em;
+    border-radius: 0 1em 1em 0;
+}
+
+
 .partieadroite {
-    background-color: #f2f2f2;
-    padding: 1rem;
+    border-style: solid;
+    border-color: white;
+    border-radius: 1em;
 }
 
 .cards {
