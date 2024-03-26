@@ -21,7 +21,7 @@ const app = createApp(App);
 const routes = [
   { path: '/', component: Home},
   { path: '/about', component: About},
-  { path: '/container/:name', component: Container},
+  { path: '/container/:cluster/:container', component: Container},
   { path: '/container/add', component: AddContainer},
   { path: '/cluster', component: GestionCluster}
 ];

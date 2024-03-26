@@ -1,11 +1,24 @@
 import config from '../../env.json'
 import Toastify from "toastify-js/src/toastify-es.js";
+import {Toast} from "./Utils.js";
 
 export default class Api {
 	
 	static INSTANCE;
 	static CONFIG;
 	static URL_API
+
+
+	static POST_VALUE = (body) => {
+		return {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+
+			body: body,
+		}
+	}
 
 	static TOAST_ERR_API = 	Toastify({
 
@@ -63,6 +76,12 @@ export default class Api {
 		return await (await fetch(urlApi).catch(Api.TOAST_ERR_API)).json()
 	}
 
+	async getCluster(cluster)
+	{
+		let urlApi = this.URL_API + "/cluster/" + cluster;
+		return await (await fetch(urlApi).catch(Api.TOAST_ERR_API)).json()
+	}
+
 	async getContainersFromCluster(clustername)
 	{
 		// /cluster/{clustername}/container
@@ -70,19 +89,25 @@ export default class Api {
 		return await (await fetch(urlApi).catch(Api.TOAST_ERR_API)).json()
 	}
 
+	// "/container/{container}/actions"
+	// ACTION : start, stop, restart
+	async controlContainer(containerName, action)
+	{
+		if(!["start", "stop", "restart"].includes(action)) {
+			Toast("L'action n'existe pas", 2000, "error")
+			return;
+		}
+		let json = JSON.stringify({"action": action})
+		let urlApi = this.URL_API + "/container/" + containerName + "/actions"
+		return await (await fetch(urlApi, Api.POST_VALUE(json)).catch(Api.TOAST_ERR_API)).text();
+	}
+
 
 	async createContainer(name, fingerprint)
 	{
 		let json = JSON.stringify({"name": name, "fingerprint": fingerprint});
 		let urlApi = this.URL_API + "/container";
-		return await (await fetch(urlApi, {
-			method: "POST",
-			headers: {
-			  "Content-Type": "application/json",
-			},
-
-			body: json,
-		  }).catch(Api.TOAST_ERR_API)).text();
+		return await (await fetch(urlApi, Api.POST_VALUE(json)).catch(Api.TOAST_ERR_API)).text();
 	}
 
 }

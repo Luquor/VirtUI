@@ -4,6 +4,11 @@
     background: linear-gradient(to right, #ff0000, #ff6666);
 }
 
+.toastify.warning
+{
+    background: linear-gradient(to right, #ff8c00, #ffc266);
+}
+
 main {
     width: 80%;
     margin: 0 auto;

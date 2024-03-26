@@ -5,7 +5,7 @@ import Td from '../components/VueConteneur/Td.vue';
 import Nom from '../components/VueConteneur/Nom.vue';
 
 
-import Toastify from "toastify-js/src/toastify-es.js";
+import {Toast} from "../api/Utils.js";
 
 import Api from "../api/Api.js";
 
@@ -16,8 +16,28 @@ const route = useRoute()
 
 let container = ref({metadata: {status: "LOADING...", created_at: "LOADING...", description: "LOADING...", location: "LOADING..."}});
 
+async function startContainer() {
+  Toast("Lancement...")
+  Toast(await Api.getInstance().controlContainer(route.params.container, "start"))
+}
+
+function stopContainer()
+{
+
+}
+
+function restartContainer()
+{
+
+}
+
+function deleteContainer()
+{
+
+}
+
 onMounted(async () => {
-  container.value = await Api.getInstance().getContainer(route.params.name)
+  container.value = await Api.getInstance().getContainer(route.params.container)
   if(!container.value)
   {
     Toastify({
@@ -32,10 +52,10 @@ onMounted(async () => {
 })
 
 watch(
-    () => route.params.name,
+    () => route.params.container,
     async (newName, oldName ) => {
       container.value = {metadata: {status: "LOADING...", created_at: "LOADING...", description: "LOADING...", location: "LOADING..."}};
-      container.value = await Api.getInstance().getContainer(route.params.name)
+      container.value = await Api.getInstance().getContainer(route.params.container)
       if(!container.value)
       {
         Toastify({
@@ -44,7 +64,7 @@ watch(
           close: true,
           position: "right",
           className: "error",
-          duration: 200
+          duration: 2000
         }).showToast();
       }
     }
@@ -57,7 +77,7 @@ watch(
 <template>
         <div class="partieadroite">
             <div class="info_container">
-                <Nom>{{  $route.params.name }}</Nom>
+                <Nom>{{  $route.params.container }}</Nom>
                 <table>
                     <tr>
                         <td></td>
@@ -80,11 +100,21 @@ watch(
                         <Td>{{ container.metadata.location }}</Td>
                     </tr>
 
-                    <Terminal v-if="container.metadata.status === 'Running'">
-                        
-                    </Terminal>
 
                 </table>
+
+                 <div class="actionnable">
+                   <Terminal v-if="container.metadata.status === 'Running'">
+
+                   </Terminal>
+                   <div class="card-actions">
+
+                     <button @click="startContainer" v-if="container.metadata.status === 'Stopped'" class="start">Lancer</button>
+                     <button v-if="container.metadata.status === 'Running'" class="stop">Stopper</button>
+                     <button v-if="container.metadata.status === 'Running'" class="restart">Relancer</button>
+                     <button class="delete">Supprimer</button>
+                   </div>
+                 </div>
 
             </div>
         </div>  
@@ -92,7 +122,26 @@ watch(
 
 <style scoped>
 
-  
+  .actionnable
+  {
+    display: flex;
+
+  }
+
+  .card-actions {
+    display: flex;
+    flex-direction: column;
+    height: 20%;
+    gap: 10px;
+  }
+
+
+
+  #terminal
+  {
+    width: 90%;
+  }
+
   /* Info container */
   .info_container {
     display: flex;

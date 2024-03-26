@@ -1,4 +1,6 @@
 import Api from "./Api.js";
+import {h} from "vue";
+import {changeScheme} from "./Utils.js";
 
 
 export default class WConsole {
@@ -8,8 +10,12 @@ export default class WConsole {
     terminalSocketControl;
     xTerm;
     name;
-    constructor(name) {
+    cluster;
+
+    constructor(name, cluster) {
         this.name = name;
+        this.cluster = cluster;
+        console.log("WCONSOLE :", this.cluster, this.name)
     }
 
 
@@ -33,8 +39,11 @@ export default class WConsole {
     {
         this.xTerm = terminal
         const webSocketsUrl = await Api.getInstance().getWebSocketsConsoleURL(this.name)
-        this.terminalSocketData = new WebSocket('wss://127.0.0.1:8443' + webSocketsUrl.Data);
-        this.terminalSocketControl = new WebSocket('wss://127.0.0.1:8443' + webSocketsUrl.Control)
+        const host = await Api.getInstance().getCluster(this.cluster)
+        console.log("HOST ?", host)
+        console.log("WSS ?", changeScheme(host.metadata.url + webSocketsUrl.Data, 'wss://'))
+        this.terminalSocketData = new WebSocket(changeScheme(host.metadata.url + webSocketsUrl.Data, 'wss://'));
+        this.terminalSocketControl = new WebSocket(changeScheme(host.metadata.url + webSocketsUrl.Control, 'wss://'))
 
         this.terminalSocketData.onopen = (function (){
             console.log('connection opened');

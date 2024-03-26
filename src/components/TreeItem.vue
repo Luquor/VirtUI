@@ -8,6 +8,7 @@ const props = defineProps({
   model: Object
 })
 
+
 const isOpen = ref(false)
 const isFolder = computed(() => {
   return props.model.children && props.model.children.length
@@ -30,10 +31,9 @@ function changeType() {
   <li>
     <div
       :class="{ bold: isFolder }"
-      @click="toggle"
-      @dblclick="changeType">
+      @click="toggle">
       <span v-if="isFolder" class="spectrum-TreeView-itemLabel">{{ model.name }}</span>
-      <router-link v-if="!isFolder" :to="`/container/${model.name}`" class="router-link spectrum-TreeView-item">{{ model.name }}</router-link>
+      <router-link v-if="!isFolder" :to="`/container/${model.cluster}/${model.name}`" class="router-link spectrum-TreeView-item">{{ model.name }}</router-link>
     </div>
     <ul v-show="isOpen" v-if="isFolder">
       <TreeItem
