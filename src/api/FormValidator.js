@@ -2,6 +2,7 @@ export default class {
 
 	rules;
 	data;
+	lastInvalidatedRules;
 
 	constructor(formData, formRules)
 	{
@@ -27,6 +28,8 @@ export default class {
 		};
 		return [true, undefined];
 	}
+
+
 
 	// To Do : Ajouter des règles
 	isValidateFor(rule, value)
