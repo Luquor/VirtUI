@@ -1,6 +1,7 @@
 import config from '../../env.json'
 import Toastify from "toastify-js/src/toastify-es.js";
 import {Toast} from "./Utils.js";
+import {useRouter} from "vue-router";
 
 export default class Api {
 	
@@ -9,18 +10,38 @@ export default class Api {
 	static URL_API
 
 
-	static POST_VALUE = (body) => {
-		return {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
+	static ROUTE_AUTH = "/auth"
 
-			body: body,
+
+	static GET_VALUE = (token = null) => {
+		const headers = {}
+		if(token) {headers["Authorization"] = "Bearer " + token}
+		return {
+			method: "GET",
+			headers: headers
 		}
 	}
 
-	static TOAST_ERR_API = 	Toastify({
+	static POST_VALUE = (body, token =null) => {
+
+
+		const headers = {
+			"Content-Type": "application/json"
+		}
+
+		if(!token && sessionStorage.getItem("TOKEN")) headers["Authorization"] = "Bearer " + sessionStorage.getItem("TOKEN")
+
+
+		const param = {
+			method: "POST",
+			headers: headers,
+
+			body: JSON.stringify(body),
+		}
+		return param
+	}
+
+	static TOAST_ERR_API = Toastify({
 
 		text: "Une erreur API est survenue, merci de contacter un administrateur si le problème persiste",
 		close: true,
@@ -28,6 +49,23 @@ export default class Api {
 		className: "error",
 		duration: 2000
 	}).showToast();
+
+
+	async fetchApi(route, param = null, type = "json")
+	{
+		if(!param) param = Api.GET_VALUE(sessionStorage.getItem("TOKEN"))
+		if(!sessionStorage.getItem("TOKEN") && route !== Api.ROUTE_AUTH)
+		{
+			Toast("Merci de vous connecter pour accéder au service !", 2000, "error")
+			await useRouter().push({path: '/auth'})
+			return;
+		}
+		if(type === "json")
+		{
+			return await (await fetch(this.URL_API + route, param).catch(Api.TOAST_ERR_API)).json();
+		}
+		return await (await fetch(this.URL_API + route, param).catch(Api.TOAST_ERR_API)).text();
+	}
 
 	static getInstance()
 	{
@@ -44,49 +82,48 @@ export default class Api {
 
 	async getWebSocketsConsoleURL(name)
 	{
-		let urlApi = this.URL_API + "/container/" + name + "/console";
-		return await (await fetch(urlApi).catch(Api.TOAST_ERR_API)).json();
+		let urlApi = "/container/" + name + "/console";
+		return await this.fetchApi(urlApi)
 	}
 
 
 
 	async getContainers() {
-		let urlApi = this.URL_API + "/containers";
-		return await (await fetch(urlApi).catch(Api.TOAST_ERR_API)).json()
-	} 
+		let urlApi = "/containers";
+		return await this.fetchApi(urlApi)
+	}
 
 	async getContainer(name)
 	{
-		let urlApi = this.URL_API + "/container/" + name;
-		return await (
-			await fetch(urlApi).catch(Api.TOAST_ERR_API)).json();
+		let urlApi = "/container/" + name;
+		return await this.fetchApi(urlApi)
 	}
 
 	async getImages()
 	{
-		let urlApi = this.URL_API + "/images";
-		return await (await fetch(urlApi).catch(Api.TOAST_ERR_API)).json()
+		let urlApi = "/images";
+		return await this.fetchApi(urlApi)
 	}
 
 
 	async getClusters()
 	{
 		// /clusters
-		let urlApi = this.URL_API + "/clusters";
-		return await (await fetch(urlApi).catch(Api.TOAST_ERR_API)).json()
+		let urlApi = "/clusters";
+		return await this.fetchApi(urlApi)
 	}
 
 	async getCluster(cluster)
 	{
-		let urlApi = this.URL_API + "/cluster/" + cluster;
-		return await (await fetch(urlApi).catch(Api.TOAST_ERR_API)).json()
+		let urlApi = "/cluster/" + cluster;
+		return await this.fetchApi(urlApi)
 	}
 
 	async getContainersFromCluster(clustername)
 	{
 		// /cluster/{clustername}/container
-		let urlApi = this.URL_API + "/cluster/" + clustername + "/container";
-		return await (await fetch(urlApi).catch(Api.TOAST_ERR_API)).json()
+		let urlApi = "/cluster/" + clustername + "/container";
+		return await this.fetchApi(urlApi)
 	}
 
 	// "/container/{container}/actions"
@@ -97,17 +134,24 @@ export default class Api {
 			Toast("L'action n'existe pas", 2000, "error")
 			return;
 		}
-		let json = JSON.stringify({"action": action})
-		let urlApi = this.URL_API + "/container/" + containerName + "/actions"
-		return await (await fetch(urlApi, Api.POST_VALUE(json)).catch(Api.TOAST_ERR_API)).text();
+		let json = {"action": action}
+		let urlApi = "/container/" + containerName + "/actions"
+		return await this.fetchApi(urlApi, Api.POST_VALUE(json), "text")
 	}
 
 
 	async createContainer(name, fingerprint)
 	{
-		let json = JSON.stringify({"name": name, "fingerprint": fingerprint});
-		let urlApi = this.URL_API + "/container";
-		return await (await fetch(urlApi, Api.POST_VALUE(json)).catch(Api.TOAST_ERR_API)).text();
+		let json = {"name": name, "fingerprint": fingerprint};
+		let urlApi = "/container";
+		return await this.fetchApi(urlApi, Api.POST_VALUE(json), "text")
+	}
+
+	async authUser(username, password)
+	{
+
+		let json = {"username": username, "password": password}
+		return await this.fetchApi(Api.ROUTE_AUTH, Api.POST_VALUE(json), "json")
 	}
 
 }

@@ -13,6 +13,7 @@ import "toastify-js/src/toastify.css"
 
 import App from './App.vue';
 import WConsole from "./api/WConsole.js";
+import Auth from "./pages/Auth.vue";
 
 const app = createApp(App);
 
@@ -23,8 +24,18 @@ const routes = [
   { path: '/about', component: About},
   { path: '/container/:cluster/:container', component: Container},
   { path: '/container/add', component: AddContainer},
-  { path: '/cluster', component: GestionCluster}
+  { path: '/cluster', component: GestionCluster},
+  { path: '/auth', component: Auth}
 ];
+
+
+
+window.dispatchEvent(new CustomEvent('token-change', {
+  detail: {
+    storage: sessionStorage.getItem('TOKEN')
+  }
+}));
+
 
 const router = VueRouter.createRouter({
   history: VueRouter.createWebHashHistory(),

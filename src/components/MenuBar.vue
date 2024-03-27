@@ -2,7 +2,7 @@
 
     import { RouterLink } from 'vue-router';
 
-    import {onMounted, ref} from 'vue'
+    import {onMounted, ref, watch} from 'vue'
     import TreeItem from './TreeItem.vue'
     import Api from "../api/Api.js";
 
@@ -12,8 +12,14 @@
     ]);
 
 
+
+
     onMounted(async () => {
 
+
+      window.addEventListener('token-change', (event) => {
+        console.log("Je change de token, donc je reload");
+      });
 
       const data = await Api.getInstance().getClusters();
       const jsonData = [];
@@ -60,13 +66,13 @@
         <div class="headerButton buttons">
             <router-link class="router-link" to="/container/add">New Container</router-link>
             <router-link class="router-link" to="/">Containers</router-link>
-            <router-link class="router-link" to="/container/test">Container {TEMPORAIRE}</router-link>
             <router-link class="router-link" to="/about">A propos</router-link>
             <router-link class="router-link" to="/cluster">Gestion Clusters</router-link>
+            <router-link class="router-link" to="/auth">Connexion/Reconnexion</router-link>
         </div>
     
         <div class="partieadroite">
-            <router-view  outer-view></router-view>
+            <router-view></router-view>
         </div>
     </div>
 
