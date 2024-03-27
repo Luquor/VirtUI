@@ -128,6 +128,12 @@ h2 {
     touch-action: manipulation;
     text-decoration: none;
     margin-bottom: 1em;
+
+}
+
+.router-link.router-link-active
+{
+  background: orange;
 }
 
 .router-link:focus {
