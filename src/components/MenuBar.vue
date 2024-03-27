@@ -2,7 +2,7 @@
 
     import { RouterLink } from 'vue-router';
 
-    import {onMounted, ref, watch} from 'vue'
+    import {onMounted, ref} from 'vue'
     import TreeItem from './TreeItem.vue'
     import Api from "../api/Api.js";
 
@@ -16,10 +16,6 @@
 
     onMounted(async () => {
 
-
-      window.addEventListener('token-change', (event) => {
-        console.log("Je change de token, donc je reload");
-      });
 
       const data = await Api.getInstance().getClusters();
       const jsonData = [];
