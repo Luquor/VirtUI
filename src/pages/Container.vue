@@ -21,14 +21,14 @@ async function startContainer() {
   Toast(await Api.getInstance().controlContainer(route.params.container, "start"))
 }
 
-function stopContainer()
-{
-
+async function stopContainer() {
+  Toast("Stop...")
+  Toast(await Api.getInstance().controlContainer(route.params.container, "stop"))
 }
 
-function restartContainer()
-{
-
+async function restartContainer() {
+  Toast("Restarting...")
+  Toast(await Api.getInstance().controlContainer(route.params.container, "restart"))
 }
 
 function deleteContainer()
@@ -109,8 +109,8 @@ watch(
             <div class="card-actions">
 
               <button @click="startContainer" v-if="container.metadata.status === 'Stopped'" class="start">Lancer</button>
-              <button v-if="container.metadata.status === 'Running'" class="stop">Stopper</button>
-              <button v-if="container.metadata.status === 'Running'" class="restart">Relancer</button>
+              <button @click="stopContainer" v-if="container.metadata.status === 'Running'" class="stop">Stopper</button>
+              <button @click="restartContainer" v-if="container.metadata.status === 'Running'" class="restart">Relancer</button>
               <button class="delete">Supprimer</button>
             </div>
           </div>

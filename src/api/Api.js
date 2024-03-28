@@ -32,13 +32,12 @@ export default class Api {
 		if(!token && sessionStorage.getItem("TOKEN")) headers["Authorization"] = "Bearer " + sessionStorage.getItem("TOKEN")
 
 
-		const param = {
+		return {
 			method: "POST",
 			headers: headers,
 
 			body: JSON.stringify(body),
 		}
-		return param
 	}
 
 	static TOAST_ERR_API = Toastify({
@@ -134,7 +133,7 @@ export default class Api {
 			Toast("L'action n'existe pas", 2000, "error")
 			return;
 		}
-		let json = {"action": action}
+		let json = {"Action": action}
 		let urlApi = "/container/" + containerName + "/actions"
 		return await this.fetchApi(urlApi, Api.POST_VALUE(json), "text")
 	}
