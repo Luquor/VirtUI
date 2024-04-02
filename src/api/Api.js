@@ -22,6 +22,14 @@ export default class Api {
 		}
 	}
 
+	static DELETE_VALUE = (token = null) => {
+		const headers = {}
+		if(token) {headers["Authorization"] = "Bearer " + token}
+		return {
+			method: "DELETE",
+			headers: headers
+		}
+	}
 	static POST_VALUE = (body, token =null) => {
 
 
@@ -144,12 +152,18 @@ export default class Api {
 		return await this.fetchApi(urlApi, Api.POST_VALUE(json), "json")
 	}
 
+	async deleteContainer(containerName)
+	{
+		let urlApi = "/container/" + containerName;
+		return await this.fetchApi(urlApi, Api.DELETE_VALUE(sessionStorage.getItem("TOKEN")), "json")
+	}
+
 
 	async createContainer(name, fingerprint)
 	{
 		let json = {"name": name, "fingerprint": fingerprint};
 		let urlApi = "/container";
-		return await this.fetchApi(urlApi, Api.POST_VALUE(json), "text")
+		return await this.fetchApi(urlApi, Api.POST_VALUE(json), "json")
 	}
 
 	async authUser(username, password)

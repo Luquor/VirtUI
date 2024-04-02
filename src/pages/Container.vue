@@ -25,13 +25,10 @@ async function operationStatus(operationID, message)
   {
     await sleep(1000)
     operation = await Api.getInstance().getOperation(operationID)
-    console.log(operation)
   }
-  if(operation.metadata.status = "Finish")
+  if(operation.metadata.status === "Success")
   {
-    container.value = await Api.getInstance().getContainer(route.params.container)
     Toast(message)
-
   }
   else
   {
@@ -59,8 +56,11 @@ async function restartContainer() {
 
 }
 
-function deleteContainer()
-{
+async function deleteContainer() {
+  Toast("Supression...", 2000, "error")
+  const deleteData = await Api.getInstance().deleteContainer(route.params.container);
+  console.log(deleteData);
+  await operationStatus(deleteData.metadata.id, "Supression terminé")
 
 }
 
@@ -140,7 +140,7 @@ watch(
               <button @click="startContainer($event)" v-if="container.metadata.status === 'Stopped'" class="start">Lancer</button>
               <button @click="stopContainer($event)" v-if="container.metadata.status === 'Running'" class="stop">Stopper</button>
               <button @click="restartContainer($event)" v-if="container.metadata.status === 'Running'" class="restart">Relancer</button>
-              <button class="delete">Supprimer</button>
+              <button @click="deleteContainer($event)" class="delete">Supprimer</button>
             </div>
           </div>
 
