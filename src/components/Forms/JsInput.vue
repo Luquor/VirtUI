@@ -23,6 +23,7 @@ div
 }
 label 
 {
+	color: black;
 	font-size: 0.9em;
 	position: absolute;
 	top: -10px;

@@ -22,6 +22,7 @@ form div.form-group input, form div.form-group select {
 	border: none;
 	padding: 5px 10px;
 	background-color: white;
+	color: black;
 	border: 1px solid black
 }
 
