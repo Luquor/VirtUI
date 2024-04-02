@@ -47,7 +47,7 @@ export default class Api {
 		position: "right",
 		className: "error",
 		duration: 2000
-	}).showToast();
+	}).showToast;
 
 
 	async fetchApi(route, param = null, type = "json")
@@ -61,9 +61,9 @@ export default class Api {
 		}
 		if(type === "json")
 		{
-			return await (await fetch(this.URL_API + route, param).catch(Api.TOAST_ERR_API)).json();
+			return await (await fetch(this.URL_API + route, param).catch((err) => {console.log(err); Api.TOAST_ERR_API()})).json();
 		}
-		return await (await fetch(this.URL_API + route, param).catch(Api.TOAST_ERR_API)).text();
+		return await (await fetch(this.URL_API + route, param).catch((err) => {console.log(err); Api.TOAST_ERR_API()})).text();
 	}
 
 	static getInstance()
@@ -125,6 +125,12 @@ export default class Api {
 		return await this.fetchApi(urlApi)
 	}
 
+	async getOperation(idOperation) {
+		let urlApi = "/operation/" + idOperation
+		return this.fetchApi(urlApi)
+	}
+
+
 	// "/container/{container}/actions"
 	// ACTION : start, stop, restart
 	async controlContainer(containerName, action)
@@ -135,7 +141,7 @@ export default class Api {
 		}
 		let json = {"Action": action}
 		let urlApi = "/container/" + containerName + "/actions"
-		return await this.fetchApi(urlApi, Api.POST_VALUE(json), "text")
+		return await this.fetchApi(urlApi, Api.POST_VALUE(json), "json")
 	}
 
 

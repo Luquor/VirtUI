@@ -5,7 +5,7 @@ import Td from '../components/VueConteneur/Td.vue';
 import Nom from '../components/VueConteneur/Nom.vue';
 
 
-import {Toast} from "../api/Utils.js";
+import {sleep, Toast} from "../api/Utils.js";
 
 import Api from "../api/Api.js";
 
@@ -16,19 +16,47 @@ const route = useRoute()
 
 let container = ref({metadata: {status: "LOADING...", created_at: "LOADING...", description: "LOADING...", location: "LOADING..."}});
 
-async function startContainer() {
-  Toast("Lancement...")
-  Toast(await Api.getInstance().controlContainer(route.params.container, "start"))
+
+
+async function operationStatus(operationID, message)
+{
+  let operation = await Api.getInstance().getOperation(operationID)
+  while(operation.metadata.status === "Running")
+  {
+    await sleep(1000)
+    operation = await Api.getInstance().getOperation(operationID)
+    console.log(operation)
+  }
+  if(operation.metadata.status = "Finish")
+  {
+    container.value = await Api.getInstance().getContainer(route.params.container)
+    Toast(message)
+
+  }
+  else
+  {
+    Toast("Une erreur est survenue lors de l'action...")
+  }
+}
+async function startContainer(event) {
+  Toast("Lancement...", 3000)
+  const actionData = await Api.getInstance().controlContainer(route.params.container, "start")
+  await operationStatus(actionData.metadata.id, "Lancement terminé")
+
 }
 
 async function stopContainer() {
   Toast("Stop...")
-  Toast(await Api.getInstance().controlContainer(route.params.container, "stop"))
+  const actionData = await Api.getInstance().controlContainer(route.params.container, "stop")
+  await operationStatus(actionData.metadata.id, "Arrêt terminé")
+
 }
 
 async function restartContainer() {
   Toast("Restarting...")
-  Toast(await Api.getInstance().controlContainer(route.params.container, "restart"))
+  const actionData = await Api.getInstance().controlContainer(route.params.container, "restart")
+  await operationStatus(actionData.metadata.id, "Restarting terminé")
+
 }
 
 function deleteContainer()
@@ -37,6 +65,9 @@ function deleteContainer()
 }
 
 onMounted(async () => {
+
+
+
   container.value = await Api.getInstance().getContainer(route.params.container)
   if(!container.value)
   {
@@ -103,14 +134,12 @@ watch(
         </table>
 
           <div class="actionnable">
-            <!-- <Terminal v-if="container.metadata.status === 'Running'"> -->
-          <Terminal>
-          </Terminal>
+            <Terminal v-if="container.metadata.status === 'Running'"/>
             <div class="card-actions">
 
-              <button @click="startContainer" v-if="container.metadata.status === 'Stopped'" class="start">Lancer</button>
-              <button @click="stopContainer" v-if="container.metadata.status === 'Running'" class="stop">Stopper</button>
-              <button @click="restartContainer" v-if="container.metadata.status === 'Running'" class="restart">Relancer</button>
+              <button @click="startContainer($event)" v-if="container.metadata.status === 'Stopped'" class="start">Lancer</button>
+              <button @click="stopContainer($event)" v-if="container.metadata.status === 'Running'" class="stop">Stopper</button>
+              <button @click="restartContainer($event)" v-if="container.metadata.status === 'Running'" class="restart">Relancer</button>
               <button class="delete">Supprimer</button>
             </div>
           </div>

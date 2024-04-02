@@ -21,6 +21,8 @@ export function Toast(text, duration = 2000, type = "info"){
 
 }
 
+export function sleep(ms) { return new Promise(r => setTimeout(r, ms)) }
+
 export function changeScheme(url, newScheme = '')
 {
     return url.replace(/(^\w+:|^)\/\//, newScheme);

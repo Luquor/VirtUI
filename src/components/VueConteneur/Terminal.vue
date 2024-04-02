@@ -6,19 +6,28 @@
 
 </template>
 
-<script>
+
+
+<script setup>
 import {Terminal} from '@xterm/xterm';
 import WConsole from "../../api/WConsole.js";
-import {watch} from "vue";
+import {onMounted, watch} from "vue";
 import {useRoute} from "vue-router";
+
 
 //    <link rel="stylesheet" href="node_modules/@xterm/xterm/css/xterm.css" />
 import "@xterm/xterm/css/xterm.css"
 
+
+const props = defineProps(['status']);
+
+
 // TO DO : fix dimension terminal : https://www.npmjs.com/package/xterm-addon-fit
 
-export default {
-  mounted() {
+onMounted(async () => {
+
+
+
     let term;
     term = new Terminal({
       cursorBlink: true, // Optionally, if you want cursor blinking
@@ -28,10 +37,8 @@ export default {
 
     const textEncoder = new TextEncoder();
     const route = useRoute()
-
-
     let wConsole = new WConsole(route.params.container, route.params.cluster);
-    wConsole.defineTerminal(term)
+    await wConsole.defineTerminal(term)
 
 
     term.onData(data => {
@@ -54,8 +61,6 @@ export default {
       });
     })
 
-
-  }
-}
+});
 
 </script>

@@ -5,7 +5,7 @@ import JsForm from "../components/Forms/JsForm.vue";
 import Group from "../components/Forms/Group.vue";
 import FormValidator from "../api/FormValidator.js";
 import Toastify from "toastify-js/src/toastify-es.js";
-import {getTextedRuleInvalidate, Toast} from "../api/Utils.js";
+import {getTextedRuleInvalidate, sleep, Toast} from "../api/Utils.js";
 import Api from "../api/Api.js";
 
 async function auth(event) {
@@ -46,10 +46,11 @@ async function auth(event) {
     Toast("Reconnexion...", 800, "warning")
   }else
   {
-    Toast("Connexion...", 1200)
+    Toast("Connexion...", 800)
   }
 
   sessionStorage.setItem("TOKEN", TOKEN)
+  await sleep(850)
   location.reload();
 
 

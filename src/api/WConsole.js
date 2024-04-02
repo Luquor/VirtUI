@@ -15,7 +15,6 @@ export default class WConsole {
     constructor(name, cluster) {
         this.name = name;
         this.cluster = cluster;
-        console.log("WCONSOLE :", this.cluster, this.name)
     }
 
 
@@ -41,8 +40,6 @@ export default class WConsole {
         this.xTerm = terminal
         const webSocketsUrl = await Api.getInstance().getWebSocketsConsoleURL(this.name)
         const host = await Api.getInstance().getCluster(this.cluster)
-        console.log("HOST ?", host)
-        console.log("WSS ?", changeScheme(host.metadata.url + webSocketsUrl.Data, 'wss://'))
         this.terminalSocketData = new WebSocket(changeScheme(host.metadata.url + webSocketsUrl.Data, 'wss://'));
         this.terminalSocketControl = new WebSocket(changeScheme(host.metadata.url + webSocketsUrl.Control, 'wss://'))
 
