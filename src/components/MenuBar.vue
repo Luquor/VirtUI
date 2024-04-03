@@ -2,9 +2,10 @@
 
     import { RouterLink } from 'vue-router';
 
-    import {onMounted, ref} from 'vue'
+    import {onMounted, ref, watch} from 'vue'
     import TreeItem from './TreeItem.vue'
     import Api from "../api/Api.js";
+    import {getTreeData, ModifyObserver, sleep} from "../api/Utils.js";
 
     const treeData = ref([
       {name: 'LOADING...', children: [{name: '...'}, {name: '...'}]},
@@ -12,32 +13,21 @@
     ]);
 
 
+    onMounted(async function () {
+
+      treeData.value = await getTreeData()
 
 
-    onMounted(async () => {
+      watch(ModifyObserver, async () => {
+        ModifyObserver.isUpdatedContainer = false
+        treeData.value = await getTreeData()
+      })
 
 
-      const data = await Api.getInstance().getClusters();
-      const jsonData = [];
-      for (const elem of data) {
-        let dataContainer = await Api.getInstance().getContainersFromCluster(elem.metadata.server_name)
-        let jsonContainer = []
-        if(dataContainer !== null)
-        {
-          dataContainer.forEach((container) => {
-            jsonContainer.push({cluster: elem.metadata.server_name, name: container.metadata.name})
-          })
-        }
-        else
-        {
-          jsonContainer.push({name: "Vide"})
-        }
 
-        jsonData.push({name: elem.metadata.server_name, children: jsonContainer})
-      }
-      treeData.value = jsonData;
 
     })
+
 
 
 

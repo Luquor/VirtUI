@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import {createApp, ref} from 'vue';
 
 
 import * as VueRouter from 'vue-router';
@@ -18,7 +18,6 @@ import Auth from "./pages/Auth.vue";
 const app = createApp(App);
 
 
-
 const routes = [
   { path: '/', component: Home},
   { path: '/about', component: About},
@@ -30,17 +29,11 @@ const routes = [
 
 
 
-window.dispatchEvent(new CustomEvent('token-change', {
-  detail: {
-    storage: sessionStorage.getItem('TOKEN')
-  }
-}));
-
-
 const router = VueRouter.createRouter({
   history: VueRouter.createWebHashHistory(),
   routes,
 });
+
 
 
 

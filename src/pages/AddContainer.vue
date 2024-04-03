@@ -11,7 +11,7 @@ import Api from "../api/Api.js";
 import FormValidator from '../api/FormValidator.js';
 
 import Toastify from "toastify-js/src/toastify-es.js";
-import {getTextedRuleInvalidate, sleep, Toast} from "../api/Utils.js";
+import {getTextedRuleInvalidate, ModifyObserver, sleep, Toast} from "../api/Utils.js";
 import {onMounted, ref} from "vue";
 
 
@@ -68,6 +68,7 @@ async function addContainer(event) {
   Toast("Création du conteneur...", 1000)
   const operation = await Api.getInstance().createContainer(formData.get("name"), formData.get("image"))
   await operationStatus(operation.metadata.id, "Création terminé..")
+  ModifyObserver.isUpdatedContainer = true;
 
 }
 

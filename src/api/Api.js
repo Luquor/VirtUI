@@ -1,6 +1,6 @@
 import config from '../../env.json'
 import Toastify from "toastify-js/src/toastify-es.js";
-import {Toast} from "./Utils.js";
+import {ModifyObserver, Toast} from "./Utils.js";
 import {useRouter} from "vue-router";
 
 export default class Api {
@@ -67,11 +67,13 @@ export default class Api {
 			await useRouter().push({path: '/auth'})
 			return;
 		}
+		let request = await (await fetch(this.URL_API + route, param).catch((err) => {console.log(err); Api.TOAST_ERR_API()}));
 		if(type === "json")
 		{
-			return await (await fetch(this.URL_API + route, param).catch((err) => {console.log(err); Api.TOAST_ERR_API()})).json();
+			if(request.status === 404) { return null}
+			return request.json();
 		}
-		return await (await fetch(this.URL_API + route, param).catch((err) => {console.log(err); Api.TOAST_ERR_API()})).text();
+		return request.text();
 	}
 
 	static getInstance()
@@ -156,6 +158,7 @@ export default class Api {
 	{
 		let urlApi = "/container/" + containerName;
 		return await this.fetchApi(urlApi, Api.DELETE_VALUE(sessionStorage.getItem("TOKEN")), "json")
+
 	}
 
 

@@ -5,7 +5,7 @@ import Td from '../components/VueConteneur/Td.vue';
 import Nom from '../components/VueConteneur/Nom.vue';
 
 
-import {sleep, Toast} from "../api/Utils.js";
+import {ModifyObserver, sleep, Toast} from "../api/Utils.js";
 
 import Api from "../api/Api.js";
 
@@ -61,6 +61,8 @@ async function deleteContainer() {
   const deleteData = await Api.getInstance().deleteContainer(route.params.container);
   console.log(deleteData);
   await operationStatus(deleteData.metadata.id, "Supression terminé")
+  container.value = {metadata: {status: "Supprimé", created_at: "000000", description: "Supprimé", location: "Supprimé"}}
+  ModifyObserver.isUpdatedContainer = true
 
 }
 
@@ -68,36 +70,27 @@ onMounted(async () => {
 
 
 
-  container.value = await Api.getInstance().getContainer(route.params.container)
-  if(!container.value)
-  {
-    Toastify({
+  let containerData = await Api.getInstance().getContainer(route.params.container)
+  if(!containerData) {
+    Toast("Une erreur est survenue lors de la récupèration de l'instance", 2000, "error");
+    container.value = {metadata: {status: "Invalide", created_at: "Invalide", description: "Invalide", location: "Invalide"}};
 
-      text: "Une erreur est survenue lors de la récupèration de l'instance",
-      close: true,
-      position: "right",
-      className: "error",
-      duration: 200
-    }).showToast();
   }
+  else { container.value = containerData}
 })
 
 watch(
     () => route.params.container,
     async (newName, oldName ) => {
       container.value = {metadata: {status: "LOADING...", created_at: "LOADING...", description: "LOADING...", location: "LOADING..."}};
-      container.value = await Api.getInstance().getContainer(route.params.container)
-      if(!container.value)
-      {
-        Toastify({
+      let containerData = await Api.getInstance().getContainer(route.params.container)
+      if(!containerData) {
+        Toast("Une erreur est survenue lors de la récupèration de l'instance", 2000, "error");
+        container.value = {metadata: {status: "Invalide", created_at: "Invalide", description: "Invalide", location: "Invalide"}};
 
-          text: "Une erreur est survenue lors de la récupèration de l'instance",
-          close: true,
-          position: "right",
-          className: "error",
-          duration: 2000
-        }).showToast();
       }
+      else { container.value = containerData}
+
     }
 )
 
@@ -140,7 +133,7 @@ watch(
               <button @click="startContainer($event)" v-if="container.metadata.status === 'Stopped'" class="start">Lancer</button>
               <button @click="stopContainer($event)" v-if="container.metadata.status === 'Running'" class="stop">Stopper</button>
               <button @click="restartContainer($event)" v-if="container.metadata.status === 'Running'" class="restart">Relancer</button>
-              <button @click="deleteContainer($event)" class="delete">Supprimer</button>
+              <button @click="deleteContainer($event)" v-if="container.metadata.status !== 'Supprimé'" class="delete">Supprimer</button>
             </div>
           </div>
 
