@@ -143,29 +143,29 @@ export default class Api {
 
 	// "/container/{container}/actions"
 	// ACTION : start, stop, restart
-	async controlContainer(containerName, action)
+	async controlContainer(cluster, containerName, action)
 	{
 		if(!["start", "stop", "restart"].includes(action)) {
 			Toast("L'action n'existe pas", 2000, "error")
 			return;
 		}
 		let json = {"Action": action}
-		let urlApi = "/container/" + containerName + "/actions"
+		let urlApi = "/cluster/" + cluster + "/container/" + containerName + "/actions"
 		return await this.fetchApi(urlApi, Api.POST_VALUE(json), "json")
 	}
 
-	async deleteContainer(containerName)
+	async deleteContainer(cluster, containerName)
 	{
-		let urlApi = "/container/" + containerName;
+		let urlApi = "/cluster/" + cluster + "/container/" + containerName;
 		return await this.fetchApi(urlApi, Api.DELETE_VALUE(sessionStorage.getItem("TOKEN")), "json")
 
 	}
 
 
-	async createContainer(name, fingerprint)
+	async createContainer(cluster, name, fingerprint)
 	{
 		let json = {"name": name, "fingerprint": fingerprint};
-		let urlApi = "/container";
+		let urlApi = "/cluster/" + cluster + "/container";
 		return await this.fetchApi(urlApi, Api.POST_VALUE(json), "json")
 	}
 

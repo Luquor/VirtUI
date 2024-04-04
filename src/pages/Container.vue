@@ -11,6 +11,9 @@ import Api from "../api/Api.js";
 
 import {useRoute} from "vue-router";
 import {onMounted, ref, watch} from "vue";
+import JsForm from "../components/Forms/JsForm.vue";
+import Group from "../components/Forms/Group.vue";
+import JsInput from "../components/Forms/JsInput.vue";
 
 const route = useRoute()
 
@@ -29,6 +32,7 @@ async function operationStatus(operationID, message)
   if(operation.metadata.status === "Success")
   {
     Toast(message)
+    container.value = await Api.getInstance().getContainer(route.params.container)
   }
   else
   {
@@ -37,28 +41,28 @@ async function operationStatus(operationID, message)
 }
 async function startContainer(event) {
   Toast("Lancement...", 3000)
-  const actionData = await Api.getInstance().controlContainer(route.params.container, "start")
+  const actionData = await Api.getInstance().controlContainer(route.params.cluster, route.params.container, "start")
   await operationStatus(actionData.metadata.id, "Lancement terminé")
 
 }
 
 async function stopContainer() {
   Toast("Stop...")
-  const actionData = await Api.getInstance().controlContainer(route.params.container, "stop")
+  const actionData = await Api.getInstance().controlContainer(route.params.cluster, route.params.container, "stop")
   await operationStatus(actionData.metadata.id, "Arrêt terminé")
 
 }
 
 async function restartContainer() {
   Toast("Restarting...")
-  const actionData = await Api.getInstance().controlContainer(route.params.container, "restart")
+  const actionData = await Api.getInstance().controlContainer(route.params.cluster, route.params.container, "restart")
   await operationStatus(actionData.metadata.id, "Restarting terminé")
 
 }
 
 async function deleteContainer() {
   Toast("Supression...", 2000, "error")
-  const deleteData = await Api.getInstance().deleteContainer(route.params.container);
+  const deleteData = await Api.getInstance().deleteContainer(route.params.cluster, route.params.container);
   console.log(deleteData);
   await operationStatus(deleteData.metadata.id, "Supression terminé")
   container.value = {metadata: {status: "Supprimé", created_at: "000000", description: "Supprimé", location: "Supprimé"}}
@@ -136,7 +140,27 @@ watch(
               <button @click="deleteContainer($event)" v-if="container.metadata.status !== 'Supprimé'" class="delete">Supprimer</button>
             </div>
           </div>
-
+        <div class="snapshot">
+          <js-form>
+            <group>
+              <js-input label="liste des snapshots">
+                <select name="snapshot" id="snapshot">
+                  <option value="">snap1 (12/04/2024 - 15:53)</option>
+                </select>
+              </js-input>
+              <js-input label="Restaurer?">
+                <input type="button" value="Confirmer la restauration">
+              </js-input>
+            </group>
+          </js-form>
+          <js-form>
+            <group>
+              <js-input label="Créer une snapshot">
+                <input type="button" value="Créer une snapshot ">
+              </js-input>
+            </group>
+          </js-form>
+        </div>
     </div>
 </template>
 

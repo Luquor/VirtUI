@@ -23,12 +23,8 @@ div
 }
 label 
 {
-	color: black;
+	color: white;
 	font-size: 0.9em;
-	position: absolute;
-	top: -10px;
-	left: 5px;
-	background-color: white;
 
 }
 

@@ -5,7 +5,7 @@ import JsForm from "../components/Forms/JsForm.vue";
 import Group from "../components/Forms/Group.vue";
 import FormValidator from "../api/FormValidator.js";
 import Toastify from "toastify-js/src/toastify-es.js";
-import {getTextedRuleInvalidate, sleep, Toast} from "../api/Utils.js";
+import {getTextedRuleInvalidate, ModifyObserver, sleep, Toast} from "../api/Utils.js";
 import Api from "../api/Api.js";
 
 async function auth(event) {
@@ -50,8 +50,8 @@ async function auth(event) {
   }
 
   sessionStorage.setItem("TOKEN", TOKEN)
-  await sleep(850)
-  location.reload();
+  ModifyObserver.isUpdatedContainer = true;
+
 
 
 }

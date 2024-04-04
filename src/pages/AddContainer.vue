@@ -66,7 +66,7 @@ async function addContainer(event) {
   }
 
   Toast("Création du conteneur...", 1000)
-  const operation = await Api.getInstance().createContainer(formData.get("name"), formData.get("image"))
+  const operation = await Api.getInstance().createContainer(formData.get("cluster"), formData.get("name"), formData.get("image"))
   await operationStatus(operation.metadata.id, "Création terminé..")
   ModifyObserver.isUpdatedContainer = true;
 

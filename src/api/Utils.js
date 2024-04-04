@@ -38,7 +38,7 @@ export async function getTreeData() {
                 jsonContainer.push({cluster: elem.metadata.server_name, name: container.metadata.name})
             })
         } else {
-            jsonContainer.push({name: "Vide"})
+            jsonContainer.push({name: "+"})
         }
 
         jsonData.push({name: elem.metadata.server_name, children: jsonContainer})

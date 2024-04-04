@@ -7,6 +7,7 @@
     import Api from "../api/Api.js";
     import {getTreeData, ModifyObserver, sleep} from "../api/Utils.js";
 
+
     const treeData = ref([
       {name: 'LOADING...', children: [{name: '...'}, {name: '...'}]},
       {name: 'LOADING...', children: [{name: '...'}, {name: '...'}]}
@@ -48,13 +49,14 @@
     </div>
 
     <div class="headerAndContent">
-        <router-link id="nomClusterHeader" to="/"><h2>NomCluster</h2></router-link>
+        <router-link id="nomClusterHeader" to="/"><h2>VirtUI</h2></router-link>
         <div class="headerButton buttons">
-            <router-link class="router-link" to="/container/add">New Container</router-link>
-            <router-link class="router-link" to="/">Containers</router-link>
-            <router-link class="router-link" to="/about">A propos</router-link>
+            <router-link class="router-link" to="/container/add">Ajouter un Container</router-link>
+            <router-link class="router-link" to="/">Gestion des conteneurs</router-link>
             <router-link class="router-link" to="/cluster">Gestion Clusters</router-link>
-            <router-link class="router-link" to="/auth">Connexion/Reconnexion</router-link>
+            <router-link class="router-link" to="/auth">Connexion/Deconnexion</router-link>
+          <router-link class="router-link" to="/about">A propos</router-link>
+
         </div>
     
         <div class="partieadroite">
